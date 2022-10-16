@@ -26,7 +26,7 @@ def build_dict(description, content):
 def show_all():
     conn = connect()
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM MATCH_INFO')
+    cursor.execute('SELECT * FROM match_info')
     record_list = list(map(lambda content: build_dict(cursor.description, content), cursor.fetchall()))
     conn.close()
     return record_list
