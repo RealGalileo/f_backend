@@ -11,6 +11,7 @@ CORS(app)
 
 def connect():
     connection = pymysql.connect(host=config.host,
+                                 port=config.port,
                                  user=config.user,
                                  password=config.password,
                                  database=config.database)
