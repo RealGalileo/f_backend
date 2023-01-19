@@ -1,5 +1,6 @@
+import json
 import pymysql
-from flask import Flask
+from flask import Flask, request
 from flask_cors import CORS
 import config
 
@@ -21,6 +22,17 @@ def connect():
 def build_dict(description, content):
     return dict(zip([x[0] for x in description], [x for x in content]))
 
+@app.route("/handle_suggestion", methods=["POST"])
+def handle_suggestion():
+    data = json.loads(request.data)
+    conn = connect()
+    cursor = conn.cursor()
+    sql = 'INSERT INTO suggestions(suggestion)' + 'VALUES (\'' + data['content'] + '\');'
+    print(sql)
+    cursor.execute(sql)
+    conn.commit()
+    conn.close()
+    return 'handlesuggestion'
 
 @app.route("/show_all")
 def show_all():
